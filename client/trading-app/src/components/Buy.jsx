@@ -4,17 +4,14 @@ import useHttpGet from '../hooks/httpGet';
 import BuyStocks from './BuyStocks';
 
 function Buy(props) {
-  // const [stocks] = useHttpGet(
-  //   `http://localhost:5000/api/stocks`,
-  //   [],
-  //   'getting stocks'
-  //   );
+  
   const [seconds, setSeconds] = useState(0);
 
+  //basically refresh the page every ten seconds.
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds(seconds => seconds + 1);
-    }, 7000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -61,15 +58,15 @@ function Buy(props) {
    * If the stock is not in the users portfolio, create a new stock in the users dashboard.
    */
   const handleBuy = async (name, amountToBuy, price_now) => {
-    const dollars = amountToBuy * parseFloat(price_now.replace(/[^0-9.]/g, ""));
+    const cost = amountToBuy * parseFloat(price_now.replace(/[^0-9.]/g, ""));
     const dollarsOnHand = parseFloat(user.dollars.replace(/[^0-9.]/g, ""));
     if (amountToBuy < 0) {
       alert("You can't buy a negative amount of stocks, silly.");
       return 'End';
     }
     
-    console.log(dollars, dollarsOnHand);
-    if(dollars > dollarsOnHand){
+    console.log(cost, dollarsOnHand);
+    if(cost > dollarsOnHand){
       alert("You don't have enough money for that, silly.");
       return 'End';
     }
@@ -81,7 +78,7 @@ function Buy(props) {
     if (!stocknamesOwned.includes(name)) {
       
 
-      await createNewStockInPortfolio(name, amountToBuy, price_now, dollars);
+      await createNewStockInPortfolio(name, amountToBuy, price_now, cost);
       
       //quit excution of the function after this point.
       return 'hello';
@@ -94,12 +91,12 @@ function Buy(props) {
           own = stock;
         }
       })
-    await updateStockInPortfolio(name, amountToBuy, price_now, own, dollars);
+    await updateStockInPortfolio(name, amountToBuy, price_now, own, cost);
 
     
   };
 
-  const createNewStockInPortfolio = async (name, amountToBuy, price_now, dollars) => {
+  const createNewStockInPortfolio = async (name, amountToBuy, price_now, cost) => {
     console.log('ran handle buy');
     console.log(amountToBuy);
     //make a new owned in order to create data on a new stock with price_bought_at and price_now included.
@@ -126,13 +123,13 @@ function Buy(props) {
     console.log(jsonData);
     if (jsonData.success) {
       alert(
-        'you successfully purchased ' + amountToBuy + ' stock(s) of ' + name
+        'you successfully purchased ' + amountToBuy + ' stock(s) of ' + name + " for " + cost.toFixed(2)
       );
     }
-    updateMoney(dollars);
+    updateMoney(cost);
   };
 
-  const updateStockInPortfolio = async (name, amountToBuy, price_now, own, dollars) => {
+  const updateStockInPortfolio = async (name, amountToBuy, price_now, own, cost) => {
     //update stock if owned already
     const price_bought_at = parseFloat(own.price_bought_at.replace(/[^0-9.]/g, ""));
     const newPrice_now = parseFloat(price_now.replace(/[^0-9.]/g, ""));
@@ -160,19 +157,19 @@ function Buy(props) {
     console.log(jsonData);
     if (jsonData.success) {
       alert(
-        'you successfully purchased ' + amountToBuy + ' stock(s) of ' + name
+        'you successfully purchased ' + amountToBuy + ' stock(s) of ' + name + ' for ' + cost.toFixed(2)
       );
     }
-    updateMoney(dollars);
+    updateMoney(cost);
   };
 
-  const updateMoney = async (dollars) => {
+  const updateMoney = async (cost) => {
     //update the amount of money in the users account
     
     const updateThisToo = {
       username: sessionStorage.getItem('username'),
       password: '',
-      dollars: -dollars,
+      dollars: -cost,
       premium_user: false
     };
     
@@ -213,7 +210,7 @@ function Buy(props) {
         
         
         
-          <BuyStocks buyStocks={stocks} handleClick={handleBuy} />
+          <BuyStocks buyStocks={stocks} handleClick={handleBuy} stocksOwned = {stocksOwned}/>
         </div>
       </div>
     );

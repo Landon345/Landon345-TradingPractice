@@ -142,7 +142,7 @@ router.put('/api/stocks/:name', async (req, res) => {
 async function readUserStocks(username){
     try{
         const results = await client.query("select name, price_bought_at, price_now, amount " +
-        "from owns where username IN (select username from users where username = $1)", [username]);
+        "from owns where username IN (select username from users where username = $1) order by name", [username]);
         return results.rows;
     }catch(e){
         return {msg: `There was an error ${e}`};

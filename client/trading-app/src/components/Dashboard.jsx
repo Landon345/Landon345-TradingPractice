@@ -36,6 +36,9 @@ function Dashboard(props) {
       //don't allow the amount sold to be higher than the amount of stock owned.
       return "hello";
     }
+    if(amountToSell <= 0){
+      return "hello";
+    }
     const updateThis = {
       username: sessionStorage.getItem('username'),
       name: name,
@@ -88,6 +91,7 @@ function Dashboard(props) {
       <Navbar user = {props.username} handleLogout = {handleLogout}/>
       
       <div className="container">
+        <h3>Hello {props.username}</h3>
         <h3>Money: {user.dollars}</h3>
         <UserStocks userStock = {stocks} handleClick = {handleSell}/>
       </div>

@@ -6,8 +6,8 @@ function UserStock(props){
 
     const calculatePercentageGain = () => {
         console.log(price_now.toString().slice(1));
-        let boughtAt = parseFloat(price_bought_at.toString().slice(1));
-        let nowAt = parseFloat(price_now.toString().slice(1));
+        let boughtAt = parseFloat(price_bought_at.replace(/[^0-9.]/g, ""));
+        let nowAt = parseFloat(price_now.replace(/[^0-9.]/g, ""));
         let difference = nowAt - boughtAt;
         let percentage = "%" + (difference/boughtAt * 100).toFixed(2);
         return percentage;
@@ -45,6 +45,9 @@ function UserStock(props){
               onClick={() => props.handleClick(name, amountToSell, amount, price_now)}
             >
               Sell
+            </button>
+            <button className="btn btn-warning" onClick={() => props.handleClick(name, amount, amount, price_now)}>
+              Sell All
             </button>
             </div>
         </div>

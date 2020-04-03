@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 function BuyStock(props) {
-    const [amountToBuy, setAmountToBuy] = useState(0);
+  const [amountToBuy, setAmountToBuy] = useState(0);
   const { name, price } = props.buyStock;
-  const [costToBuy, setCostToBuy] = useState(0);
+  const [costToBuy, setCostToBuy] = useState(0.00);
 
   const handleChange = event => {
     if ([event.target.name] == 'amountToBuy') {
@@ -37,6 +37,18 @@ function BuyStock(props) {
               onClick={() => props.handleClick(name, amountToBuy, price)}
             >
               Buy
+            </button>
+            <button
+              className='btn btn-warning'
+              onClick={() => props.handleClick(name, 10, price)}
+            >
+              Buy 10
+            </button>
+            <button
+              className='btn btn-danger'
+              onClick={() => props.handleClick(name, 50, price)}
+            >
+              Buy 50
             </button>
             
             

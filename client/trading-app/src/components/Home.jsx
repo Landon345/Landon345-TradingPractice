@@ -29,11 +29,24 @@ function Home(props) {
             onChange={handleChange}
           />
         {stocks.map(stock => (
-          <p key = {stock.name}>{stock.name}</p>
+          <div className="card text-white bg-info mb-1" style={{maxWidth: "60rem"}}>
+            <div className="card-header">{stock.name}</div>
+            <div className="card-body">
+            <h5 className="card-title">price now: {stock.price}</h5>
+            <p className="card-text"> </p>
+            </div>
+            <div class='input-group mb-3 col-3'>
+        
+         
+          </div>
+     
+          </div>
         ))}
       </div>
 
     </div>
+
+    
 
   );
 }
