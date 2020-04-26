@@ -28,10 +28,10 @@ function startInterval(){
     let basePrice = 0;
     setInterval(async ()=>{
         try{
-            console.log("ran interval");
+            //console.log("ran interval");
             const results = await client.query("select * from stocks");
             let myRows = results.rows;
-            console.log(myRows);
+            //console.log(myRows);
 
             myRows.forEach(async stock => {
                 let volatility = stock.volatility;

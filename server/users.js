@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const {Client} = require('pg');
 const client = new Client({
     user: 'postgres',
@@ -53,6 +54,7 @@ router.post('/api/users', async (req, res) => {
       result.success = false;
       result.msg = "You are not allowed to have an empty username."
     }else{
+      
       const worked = await createUser(
       reqJson.username,
       reqJson.password,
@@ -125,12 +127,19 @@ async function readUsers() {
 //gets the specific user
 async function readUser(username, password) {
   try {
-    const results = await client.query(
-      'select * from users where username = $1 and password = $2',
-      [username, password]
-    );
     
-    return results.rows;
+    const results = await client.query(
+      'select * from users where username = $1',
+      [username]
+    );
+    const isMatch = await bcrypt.compare(password, results.rows[0].password);
+    console.log(isMatch);
+    if(isMatch){
+      return results.rows;
+    }else{
+      return {msg: `Incorrect Password`};
+    }
+    //return results.rows;
   } catch (e) {
     return {msg: `No user with username of ${username}`};
   }
@@ -169,10 +178,18 @@ async function createUser(username, password, dollars, premium_user, loggedin) {
         return false;
       }
     })
+    const saltRounds = 5;
+    const hashPassword = await bcrypt.hash(password, saltRounds);
+    console.log(hashPassword)
+  
     await client.query(
-      'insert into users (username, password, dollars, premium_user, loggedin) values ($1, $2, $3, $4, $5)',
-      [username, password, dollars, premium_user, loggedin]
+    'insert into users (username, password, dollars, premium_user, loggedin) values ($1, $2, $3, $4, $5)',
+    [username, hashPassword, dollars, premium_user, loggedin]
     );
+
+    
+    
+    
     return true;
   } catch (e) {
     return false;
