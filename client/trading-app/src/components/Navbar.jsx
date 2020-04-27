@@ -13,7 +13,7 @@ function Navbar(props){
      
 
      
-      <nav className="navbar navbar-dark bg-dark mb-3">
+      <nav className="navbar navbar-dark mb-3" style={{backgroundColor: "black"}}>
         
         <a href="/dashboard" className="navbar-brand">Dashboard</a>
         <a href="/buy" className="navbar-brand">Buy</a>
@@ -26,7 +26,7 @@ function Navbar(props){
     return(
       
 
-      <nav className="navbar navbar-dark bg-dark mb-3">
+      <nav className="navbar navbar-dark mb-3" style={{backgroundColor: "black"}}>
         
 
         <a href="/" className="navbar-brand">Home</a>

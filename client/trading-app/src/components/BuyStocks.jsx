@@ -32,8 +32,8 @@ function BuyStocks(props) {
         <div className="col-3">
   
           
-          <div className='card text-white bg-info mb-1' style={{ maxWidth: '60rem' }}>
-          <div className='card-header'>My Stocks</div>
+          <div className='card text-white mb-1' style={{ maxWidth: '60rem', backgroundColor:"green" }}>
+          <div className='card-header' style={{backgroundColor: "forestGreen"}}>My Stocks</div>
           <div className='card-body'>
           
           <p className='card-text'>

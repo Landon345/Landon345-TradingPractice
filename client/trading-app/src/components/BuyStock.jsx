@@ -14,8 +14,8 @@ function BuyStock(props) {
   };
 
   return (
-    <div className='card text-white bg-info mb-1' style={{ maxWidth: '60rem' }}>
-      <div className='card-header'>{name}</div>
+    <div className='card text-white mb-1' style={{ maxWidth: '60rem', backgroundColor: "green"}}>
+      <div className='card-header' style={{backgroundColor: "forestGreen"}}>{name}</div>
       <div className='card-body'>
         <h5 className='card-title'>price: {price}</h5>
         <p className='card-text'></p>

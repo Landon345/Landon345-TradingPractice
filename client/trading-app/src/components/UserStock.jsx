@@ -21,8 +21,8 @@ function UserStock(props){
     return(
         
 
-        <div className="card text-white bg-info mb-1" style={{maxWidth: "60rem"}}>
-            <div className="card-header">{name}</div>
+        <div className="card text-white mb-1" style={{maxWidth: "60rem", backgroundColor:"green"}}>
+            <div className="card-header" style={{backgroundColor: "forestGreen"}}>{name}</div>
             <div className="card-body">
             <h5 className="card-title">price bought at: {price_bought_at}, price now: {price_now}</h5>
             <p className="card-text">Amount: {amount}, Loss/Gain:  {calculatePercentageGain()}</p>

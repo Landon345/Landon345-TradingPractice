@@ -48,7 +48,7 @@ function Login(props){
 return (
     <div >
       <Navbar />
-      <div >
+      <div className="container">
 
       <h1>Login to trading practice</h1>
       <form onSubmit={Submit}>

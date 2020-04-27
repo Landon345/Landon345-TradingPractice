@@ -64,6 +64,8 @@ function Register(props) {
   return (
     <div>
       <Navbar />
+      <div className="container">
+
       <h1>Register for Trading Practice</h1>
       <form onSubmit={Submit}>
         <div className='form-group'>
@@ -76,7 +78,7 @@ function Register(props) {
             placeholder="User name"
             onChange={handleChange}
             required
-          />
+            />
           <small id='emailHelp' className='form-text text-muted'>
             Please enter a username
           </small>
@@ -103,13 +105,14 @@ function Register(props) {
             placeholder='password confirmation'
             onChange={handleChange}
             required
-          />
+            />
         </div>
 
         <button className='btn btn-primary' type='submit'>
           Register
         </button>
       </form>
+      </div>
     </div>
   );
 }
