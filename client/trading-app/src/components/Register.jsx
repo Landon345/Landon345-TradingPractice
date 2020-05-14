@@ -30,7 +30,6 @@ function Register(props) {
       password: password,
       dollars: 10000,
       premium_user: false,
-      loggedin: false
     };
         const response = await fetch(
             'http://localhost:5000/api/users', {

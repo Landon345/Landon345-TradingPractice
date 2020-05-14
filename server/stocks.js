@@ -31,7 +31,7 @@ function startInterval(){
             //console.log("ran interval");
             const results = await client.query("select * from stocks");
             let myRows = results.rows;
-            //console.log(myRows);
+            console.log(myRows);
 
             myRows.forEach(async stock => {
                 let volatility = stock.volatility;
@@ -60,7 +60,6 @@ function startInterval(){
 function changePrice(price, volatility, upside, basePrice){
     //Give a 1 in 10 chance of volatility * 10
     if(Math.random() < 0.1){
-        console.log("high volatility");
         volatility *= 15;
     }
 

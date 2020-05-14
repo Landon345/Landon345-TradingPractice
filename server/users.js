@@ -60,7 +60,6 @@ router.post('/api/users', async (req, res) => {
       reqJson.password,
       reqJson.dollars,
       reqJson.premium_user,
-      reqJson.loggedin
       );
       if(!worked){
         result.msg = "Username already taken."
@@ -170,7 +169,7 @@ async function readUserLoggedin() {
 }
 
 //creating user
-async function createUser(username, password, dollars, premium_user, loggedin) {
+async function createUser(username, password, dollars, premium_user) {
   try {
     const results = await client.query('select username from users');
     results.rows.forEach(user => {
@@ -183,8 +182,8 @@ async function createUser(username, password, dollars, premium_user, loggedin) {
     console.log(hashPassword)
   
     await client.query(
-    'insert into users (username, password, dollars, premium_user, loggedin) values ($1, $2, $3, $4, $5)',
-    [username, hashPassword, dollars, premium_user, loggedin]
+    'insert into users (username, password, dollars, premium_user) values ($1, $2, $3, $4)',
+    [username, hashPassword, dollars, premium_user]
     );
 
     
